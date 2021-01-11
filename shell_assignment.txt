@@ -63,7 +63,16 @@ There are a bunch of other options in both the help page and when you press tab.
 Piping all the commands together
 gc .\helloworld.txt |sls 'world' | measure -word | oh -p gives the output 4, which is the number of words in the lines that include the word hello throughout the file. oh -p does not really change anything, as the output is this small anyways.
 
-wdes
+6.1 curl http://cli.ucudata.nl/aup.tar.gz > .\ucudata.aup.tar.gz downloaded the data from the website! (there was something wrong with this set so I manually downloaded it and used it in the following steps)
+
+6.2: tar.exe -xf .\aup.tar.gz unpacked the data and moved it into a new folder
+
+6.3: gci .\aup -r -fil *.aup filters out all the individual files within the folder and all it subfolders
+C:\Users\User\Documents\MET2J\shell_magic\aup\cohort3\s274fhum is the lowest level at which data is stored. 
+gc C:\Users\User\Documents\MET2J\shell_magic\aup\cohort3\s274fhum\s274fhum.aup |oh -p opens one of the files and shows that there is a bunch of numbers in there, which include a lens, a min, a max and a rms value
+To find out how many files .aup are in the folder I used the pipe: gci .\aup -r -filter *.aup |measure, which showed me there are 964 files.aup in this folder!
+
+
 
  
 
