@@ -39,8 +39,31 @@ When just typing Remove-Item .\hello_world I need to confirm that I want to dele
 4.1: Get-Content -Path .\shell_assignment.txt shows the whole content of that file, just as it does in this textfile. Useful? Maybe?
 For the new file hello_world.txt I used Get-Content -Path .\hello_world.txt which shows absolutely nothing. That makes sense as that file is also completly empty
 
-4.2: Write-Output works like the pipe does in R and sends an object from one line of commands into the next one
+4.2: Write-Output works like the pipe does in R and sends an object from one line of commands into the next one, so using the output of the first command (before the >) for the second command (behind the >)
 using echo 'file contents' > .\file.txt added the line 'file contents' to that file. So i guess it worked as expected
+Adding more text with echo  'more text'>> .\file.txt also worked
+
+4.3: I then created a new item home_contents.list and added a list of the contents in my directory in there with gci > .\home_contents.list
+both gc home-contents.list and gc home_contents.list | oh -p gave me the output paged, which is a lot easier to go through. So using oh -p is very helpful when looking through files or directories with a lot of output, as it does not clutter up the terminal as much. 
+
+5.1: Does what the name implies: gives you the summary of the file, including numeric properties of objects, characters, words, and lines, in objects
+Just doing Measure Object file.txt -word does not work and gives nothing.
+Get-Content .\file.txt |measure -word then gives you the words in the file!
+| uses the output of Get-Content, so the text that is written in the file and pipes it through the measure command, which then counts the words. A similar thing happened in 4.3, where it piped the content of the list through the oh -p command
+gci | measure shows the number of files in my working directory, but it ignores the folder of git which is fun
+
+5.2: echo 'hello world' 'world hello' > helloworld.txt added a new item with the name helloworld to the working directory with both lines in seperate lines within it!
+sls is like Ctrl+F and finds stuff within your files, or after trying it with sls 'world' .\helloworld.tx it prints the lines that include the word 'world' in the file. So in this case it just gave me the two lines we have in the file!
+I made a new file with the content 'world hello' using echo 'world hello' > worldhello.txt. I then searched the new and old file using the command sls 'hello' .\helloworld.txt, .\worldhello.txt, which then showed me all 3 lines that included the word 'hello'. It also shows in which file it was found and which line it was in
+with the gci function you can also get all files that have the word 'hello' in their name with Get-ChildItem | Select-Object FullName | Select-String 'hello', which is nice but not really useful
+More useful you can also do Get-ChildItem | Select-Object DirectoryName which gives you the directories for all the files in the working directory (they are all the same, so also not super useful), you can also see the creation time of the files, the last accesses time, length of the file
+There are a bunch of other options in both the help page and when you press tab. I just pressed tab and tried a few to see what tehy did!
+
+5.3: To find occurences of 'hello' I used the command >sls 'hello' .\helloworld.txt
+Piping all the commands together
+gc .\helloworld.txt |sls 'world' | measure -word | oh -p gives the output 4, which is the number of words in the lines that include the word hello throughout the file. oh -p does not really change anything, as the output is this small anyways.
+
+wdes
 
  
 
