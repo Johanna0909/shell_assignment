@@ -1,0 +1,46 @@
+1.1: Get-ChildItem shows the contents of the folder you are working on, such as the files that are in there, their type and the last time they have been worked on.
+Get-Alias ls shows that Get-ChildItem can be used in its alias form, gci, now. When using gci it gives the same results as Get-ChildItem did earlier
+1.2: Get-Help shows very broad explanations on what the command can do, such as the name, syntax and a descritption
+Using Get-Help - Detailed gives a much longer and ... detailed... explanation, the command's parameters, including a bunch of examples on how it can be used
+Get-ChildItem can be used to only show files with a certain extension by using Get-ChildItem -Include * .txt, to only include textfiles for example, on the flipside you can also use -Exclude* to exclude all files with a certain extension
+I used gci - Filter * .txt, Get-ChildItem -fi * .txt and tried gci -r * .txt, but that did not give me anything different(which is probably as the .txt is the only file in that folder)
+
+2.1: I'm currently working from the folder I created for this course and the subfolder for this assignment: C:\Users\User\Documents\MET2J\shell_magic
+I do not see files in different colors, only commands, in which the first command is yellow, the subject white, and any additions are grey
+But you can distinguish folders from files by their extension: folders do not have file extensions, files do
+
+2.2: using set-location you can change the working directory to a different place on the drive
+This uses first Set-Location C:\Users\User\Documents\Uni to move it somewhere else, then I can check it is there by running Get-Location and see where I am working on now
+Then I moved this all back with sl C:\Users\User\Documents\MET2J\shell_magic and Get-Location again to see where I am now, and it is the same place I started from!
+
+3.1: the file could not be created as "New-Item hello world, because "world" was not accepted as an argument. This probably means that spaces in file names are not working, as it assumes there are two different commands happening here, within the title of the file
+This can probably be avoided by adding a hyphen or underscore between the words
+
+3.2: To get a new folder I used New-Item hello_world -Itemtype directory, which worked and showed me the location of this file. It also showed up in the file explorer.
+
+3.3 : Creating a file hello_world in the shell_magic folder did not work, probably as there is already a folder of the same name in that directory.
+Naming the empty file hello_world.bfe worked, as this gives it a different name than the folder has.
+Renaming this file I used Rename-Item hello_world.bfe hello_world.txt
+Moving it to the folder hello_world through Move-Item hello_world.txt -Destination hello_world
+Moving it back took some more steps (for some reason?) and I used the command  Move-Item C:\Users\User\Documents\MET2J\shell_magic\hello_world\hello_world.txt -Destination C:\Users\User\Documents\MET2J\shell_magic
+To move it back and forth again I used: 
+Set-Location C:\Users\User\Documents\MET2J\shell_magic\hello_world
+Move-Item ..\hello_world.txt
+Move-Item .\hello_world.txt -destination ..\shell_magic\hello_world.txt
+
+3.4: Copying a file makes a copy of it, so you have two of them, possibly in different locations
+After setting my working directory back to shell_magic I used Copy-Item .\hello_world.txt -Destination .\hello_world\hello_world.txt to add a copy to the hello_world folder
+To rename it in there I just used Copy-Item .\hello_world.txt -Destination .\hello_world\world_hello.txt
+
+3.5: To remove the file in \shell_magic I used Remove-Item .\hello_world.txt, and it was gone
+Then I removed the file in the \hello_world folder with Remove-Item .\hello_world\hello_world.txt
+When just typing Remove-Item .\hello_world I need to confirm that I want to delete this folder and can agree with typing J for yes, or N for no
+
+4.1: Get-Content -Path .\shell_assignment.txt shows the whole content of that file, just as it does in this textfile. Useful? Maybe?
+For the new file hello_world.txt I used Get-Content -Path .\hello_world.txt which shows absolutely nothing. That makes sense as that file is also completly empty
+
+4.2: Write-Output works like the pipe does in R and sends an object from one line of commands into the next one
+using echo 'file contents' > .\file.txt added the line 'file contents' to that file. So i guess it worked as expected
+
+ 
+
